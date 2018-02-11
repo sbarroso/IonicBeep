@@ -1,10 +1,11 @@
 import { MESSAGE_LIST } from './../../mocks/messages/messages';
+import { Profile } from './../../models/profile/profile.interface';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Message } from '../../models/messages/message.interface';
 
 /**
- * Generated class for the InboxPage page.
+ * Generated class for the MessagePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,22 +13,21 @@ import { Message } from '../../models/messages/message.interface';
 
 @IonicPage()
 @Component({
-  selector: 'page-inbox',
-  templateUrl: 'inbox.html',
+  selector: 'page-message',
+  templateUrl: 'message.html',
 })
-export class InboxPage {
+export class MessagePage {
 
-  messageList: Message[] = MESSAGE_LIST;
+  selectedProfile: Profile;
+
+  messageList: Message[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.messageList = MESSAGE_LIST;
   }
 
   ionViewDidLoad() {
-    console.log(this.messageList);
-  }
-
-  navigateToSearchUserPage() {
-    this.navCtrl.push('SearchUserPage')
+    this.selectedProfile = this.navParams.get('profile');
   }
 
 }

@@ -1,8 +1,12 @@
+import { AuthProvider } from '../auth/auth';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { User } from 'firebase/app';
 import { Profile } from '../../models/profile/profile.interface'
 import "rxjs/add/operator/take";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/mergeMap";
+
 
 /*
   Generated class for the DataProvider provider.
@@ -13,10 +17,37 @@ import "rxjs/add/operator/take";
 @Injectable()
 export class DataProvider {
 
-  profileObject: FirebaseObjectObservable<Profile>
+  profileObject: FirebaseObjectObservable<Profile>;
+  profileList: FirebaseListObservable<Profile>;
 
-  constructor(private database: AngularFireDatabase) {
-    console.log('Hello DataProvider Provider');
+  constructor(private database: AngularFireDatabase, private auth: AuthProvider) {
+  }
+
+  searchUser(firstName: string) {
+    console.log('searching ', firstName)
+    // const query = this.database.list('/profiles', {
+    //   query: query: {
+    //     orderByChild: 'firstName',
+    //     equalTo: firstName
+    //   }
+    // })
+    // return query.take(1)
+
+    const query = this.database.list('/profiles', ref => {
+      return ref.orderByChild('firstName').equalTo(firstName)
+      .subscribe(data => {
+        console.log('data ', data)
+        return data
+      })
+    })
+    return query;
+  }
+
+  getAuthenticatedUserProfile() {
+    return this.auth.getAuthenticatedUser()
+    .map(user => user.uid)
+    .mergeMap(authId => this.database.object(`/profiles/${authId}`))
+    .take(1)
   }
 
   getProfile(user: User) {

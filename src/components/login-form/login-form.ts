@@ -3,7 +3,6 @@ import { LoginResponse } from './../../models/login/login-response.interface';
 import { Account } from './../../models/account/account.interface';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the LoginFormComponent component.

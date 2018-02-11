@@ -13,7 +13,6 @@ import { LoginResponse } from '../../models/login/login-response.interface';
 export class AuthProvider {
 
   constructor(private auth: AngularFireAuth) {
-    console.log('Hello AuthProvider Provider');
   }
 
   getAuthenticatedUser() {
@@ -46,5 +45,9 @@ export class AuthProvider {
         error: e
       }
     }
+  }
+
+  signOut() {
+    this.auth.auth.signOut();
   }
 }

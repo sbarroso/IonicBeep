@@ -1,7 +1,5 @@
 import { LoginResponse } from './../../models/login/login-response.interface';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth'
-import { ToastController } from 'ionic-angular'
 import { Account } from './../../models/account/account.interface';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -20,7 +18,7 @@ export class RegisterFormComponent {
   @Output() registerStatus: EventEmitter<LoginResponse>
   account = {} as Account;
 
-  constructor(private auth: AuthProvider, private toast: ToastController) {
+  constructor(private auth: AuthProvider) {
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 

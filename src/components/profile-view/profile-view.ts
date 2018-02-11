@@ -1,7 +1,6 @@
 import { Profile } from './../../models/profile/profile.interface';
-import { AuthProvider } from './../../providers/auth/auth';
 import { DataProvider } from './../../providers/data/data';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { LoadingController, Loading } from 'ionic-angular';
 
 /**
@@ -16,11 +15,15 @@ import { LoadingController, Loading } from 'ionic-angular';
 })
 export class ProfileViewComponent implements OnInit {
 
-  userProfile: Profile
+  public userProfile: Profile
 
-  loader: Loading;
+  private loader: Loading;
 
-  constructor(private loading: LoadingController, private data: DataProvider, private auth: AuthProvider) {
+  @Output() existingProfile: EventEmitter<Profile>;
+
+  constructor(private loading: LoadingController, private data: DataProvider) {
+
+    this.existingProfile = new EventEmitter<Profile>()
     this.loader = this.loading.create({
       content: 'Loading profile...'
     })
@@ -28,11 +31,11 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit() {
     this.loader.present();
-    this.auth.getAuthenticatedUser().subscribe(user => {
-      this.data.getProfile(user).subscribe((profile: Profile) => {
-        this.userProfile = <Profile>profile.val();
-        this.loader.dismiss();
-      })
+
+    this.data.getAuthenticatedUserProfile().subscribe(profile => {
+      this.userProfile = profile;
+      this.existingProfile.emit(this.userProfile);
+      this.loader.dismiss();
     })
   }
 
