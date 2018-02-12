@@ -22,10 +22,6 @@ export class InboxPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log(this.messageList);
-  }
-
   navigateToSearchUserPage() {
     this.navCtrl.push('SearchUserPage')
   }

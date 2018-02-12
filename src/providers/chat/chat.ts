@@ -1,4 +1,5 @@
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { ChannelMessage } from './../../models/channel/channel-message.interface';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Injectable } from '@angular/core';
 
 /*
@@ -14,6 +15,18 @@ export class ChatProvider {
   }
 
   addChannel(channelName: string) {
-    this.database.list(`/channel-names/`).push({name: channelName})
+    this.database.list(`channel-names`).push({name: channelName})
+  }
+
+  getChannelListRef(): FirebaseListObservable<any> {//TODO? <Channel>
+    return this.database.list(`channel-names`);   
+  }
+
+  getChannelChatRef(channelKey: string) {
+    return this.database.list(`channels/${channelKey}`);
+  }
+
+  sendChannelChatMessage(channelKey: string, message: ChannelMessage) {
+    this.database.list(`channels/${channelKey}`).push(message);
   }
 }

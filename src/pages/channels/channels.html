@@ -19,5 +19,11 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let channel of channelList | async" (click)="selectChannel(channel)">
+      #{{channel.name}}
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>

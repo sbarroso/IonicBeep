@@ -6,6 +6,7 @@ import { Profile } from '../../models/profile/profile.interface'
 import "rxjs/add/operator/take";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
+import  {database} from 'firebase';
 
 
 /*
@@ -67,4 +68,18 @@ export class DataProvider {
     }
   }
 
+  setUserOnline(profile: Profile) {
+    const ref = database().ref(`online-users/${profile.$key}`);
+
+    try{
+      ref.update({...profile});
+      ref.onDisconnect().remove();
+    }catch(e) {
+      console.error(e);
+    }
+  }
+
+  getOnlineUsers(): FirebaseListObservable<Profile[]> {
+    return this.database.list(`online-users`);
+  }
 }
