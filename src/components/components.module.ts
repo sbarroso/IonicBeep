@@ -8,6 +8,7 @@ import { ProfileSearchComponent } from './profile-search/profile-search';
 import { SendMessageBoxComponent } from './send-message-box/send-message-box';
 import { ChatMessageComponent } from './chat-message/chat-message';
 import { OnlineUsersComponent } from './online-users/online-users';
+import { LastMessageListComponent } from './last-message-list/last-message-list';
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,8 @@ import { OnlineUsersComponent } from './online-users/online-users';
         ProfileSearchComponent,
         SendMessageBoxComponent,
     ChatMessageComponent,
-    OnlineUsersComponent
+    OnlineUsersComponent,
+    LastMessageListComponent
     ],
 	imports: [
         IonicModule
@@ -31,7 +33,8 @@ import { OnlineUsersComponent } from './online-users/online-users';
         ProfileSearchComponent,
         SendMessageBoxComponent,
     ChatMessageComponent,
-    OnlineUsersComponent
+    OnlineUsersComponent,
+    LastMessageListComponent
     ]
 })
 export class ComponentsModule {}

@@ -20,16 +20,8 @@
 
 <ion-content padding>
 
-  <app-online-users></app-online-users>
+  <app-last-message-list></app-last-message-list>
 
-  <ion-list>
-    <ion-item *ngFor="let message of messageList">
-      <ion-avatar>
-        <img [src]="message.user.avatar" alt="avatar">
-      </ion-avatar>
-      <h2>{{message.user.firstName}} {{message.user.lastName}}</h2>
-      <p>{{message.lastMessage}}</p>
-    </ion-item>
-  </ion-list>
+  <app-online-users></app-online-users>
 
 </ion-content>

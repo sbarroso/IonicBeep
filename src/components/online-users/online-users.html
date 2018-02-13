@@ -1,6 +1,6 @@
 <ion-list>
   <ion-item-divider>Online Users</ion-item-divider>
-  <ion-item *ngFor="let user of userList | async">
+  <ion-item *ngFor="let user of userList | async" (click)="openChat(user)">
     <ion-avatar item-left>
       <img src="assets/imgs/avatar.png" alt="">
     </ion-avatar>
